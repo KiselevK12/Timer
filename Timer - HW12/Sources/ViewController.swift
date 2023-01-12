@@ -8,16 +8,27 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     // MARK: - UI Elements
+    
+    private lazy var countingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "25:00"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 60, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        setupHierarchy()
+        setupLayout()
     }
-
+    
     // MARK: - Setup
     
     private func setupView() {
@@ -25,14 +36,21 @@ class ViewController: UIViewController {
     }
     
     private func setupHierarchy() {
-        
+        [countingLabel].forEach(view.addSubview)
     }
     
-    // MARK: - Action
-    
-    @objc private func buttonPressed() {
+    private func setupLayout() {
         
+        countingLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(view).offset(-100)
+            make.centerX.equalTo(view)
+        }
     }
-
+        // MARK: - Action
+        
+        private func buttonPressed() {
+            
+        }
+        
 }
 
