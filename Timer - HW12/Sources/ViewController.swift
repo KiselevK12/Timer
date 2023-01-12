@@ -9,11 +9,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: - UI Elements
+    
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
+    // MARK: - Setup
+    
+    private func setupView() {
+        view.backgroundColor = .systemCyan
+    }
+    
+    private func setupHierarchy() {
+        
+    }
+    
+    // MARK: - Action
+    
+    @objc private func buttonPressed() {
+        
+    }
 
 }
 

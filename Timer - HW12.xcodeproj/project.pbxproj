@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B54096552970C64E00E26331 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54096542970C64E00E26331 /* Extensions.swift */; };
+		B54096582970C69300E26331 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B54096572970C69300E26331 /* SnapKit */; };
 		B5530C0C2970B72000CB6AA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5530C0B2970B72000CB6AA1 /* AppDelegate.swift */; };
 		B5530C0E2970B72000CB6AA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5530C0D2970B72000CB6AA1 /* SceneDelegate.swift */; };
 		B5530C102970B72000CB6AA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5530C0F2970B72000CB6AA1 /* ViewController.swift */; };
@@ -15,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B54096542970C64E00E26331 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B5530C082970B72000CB6AA1 /* Timer - HW12.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Timer - HW12.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5530C0B2970B72000CB6AA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5530C0D2970B72000CB6AA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B54096582970C69300E26331 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,7 @@
 		B5530C222970B86000CB6AA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B54096542970C64E00E26331 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -112,6 +117,9 @@
 			dependencies = (
 			);
 			name = "Timer - HW12";
+			packageProductDependencies = (
+				B54096572970C69300E26331 /* SnapKit */,
+			);
 			productName = "Timer - HW12";
 			productReference = B5530C082970B72000CB6AA1 /* Timer - HW12.app */;
 			productType = "com.apple.product-type.application";
@@ -140,6 +148,9 @@
 				Base,
 			);
 			mainGroup = B5530BFF2970B72000CB6AA1;
+			packageReferences = (
+				B54096562970C69300E26331 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = B5530C092970B72000CB6AA1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -169,6 +180,7 @@
 				B5530C102970B72000CB6AA1 /* ViewController.swift in Sources */,
 				B5530C0C2970B72000CB6AA1 /* AppDelegate.swift in Sources */,
 				B5530C0E2970B72000CB6AA1 /* SceneDelegate.swift in Sources */,
+				B54096552970C64E00E26331 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +388,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B54096562970C69300E26331 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B54096572970C69300E26331 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B54096562970C69300E26331 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B5530C002970B72000CB6AA1 /* Project object */;
 }
