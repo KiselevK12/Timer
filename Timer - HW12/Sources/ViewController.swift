@@ -11,18 +11,19 @@ class ViewController: UIViewController {
     
     // MARK: - UI Elements
     
+    var timer = Timer()
+    var isTimerStarted = false
+    var isWorkTime = true
+    var durationTime = 25
+    
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "25:00"
-        label.textColor = .black
+        label.text = "00:25"
+        label.textColor = .orange
         label.font = UIFont.systemFont(ofSize: 60, weight: .bold)
         label.textAlignment = .center
         return label
     }()
-    
-    var timer = Timer()
-    var isTimerStarted = false
-    var time = 25
     
     private lazy var startButton: UIButton = {
         let button = UIButton(type: .system)
@@ -32,6 +33,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .systemGreen
         button.clipsToBounds = false
         button.layer.cornerRadius = 20
+        button.setImage(UIImage(systemName: "play"), for: .normal)
         
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.3
@@ -51,6 +53,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .systemGray
         button.clipsToBounds = false
         button.layer.cornerRadius = 20
+        button.setImage(UIImage(systemName: "stop"), for: .normal)
         
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.3
@@ -94,14 +97,14 @@ class ViewController: UIViewController {
             make.top.equalTo(timeLabel.snp.bottom).offset(70)
             make.height.equalTo(45)
             make.centerX.equalTo(view).offset(80)
-            make.right.equalTo(view).offset(-50)
+            make.right.equalTo(view).offset(-44)
         }
         
         resetButton.snp.makeConstraints { make in
             make.top.equalTo(timeLabel.snp.bottom).offset(70)
             make.height.equalTo(45)
             make.centerX.equalTo(view).offset(-80)
-            make.left.equalTo(view).offset(50)
+            make.left.equalTo(view).offset(44)
         }
     }
         // MARK: - Action
@@ -109,16 +112,23 @@ class ViewController: UIViewController {
     @objc private func startButtonTapped(_ sender: Any) {
         resetButton.isEnabled = true
         resetButton.alpha = 1.0
+        if isWorkTime {
+            timeLabel.textColor = .orange
+        } else {
+            timeLabel.textColor = .green
+        }
         if !isTimerStarted {
             startTimer()
             isTimerStarted = true
             startButton.setTitle("Пауза", for: .normal)
+            startButton.setImage(UIImage(systemName: "pause.circle"), for: .normal)
             startButton.setTitleColor(UIColor.black, for: .normal)
         } else {
             timer.invalidate()
             isTimerStarted = false
             startButton.setTitle("Продолжить", for: .normal)
-            startButton.setTitleColor(UIColor.blue, for: .normal)
+            startButton.setImage(UIImage(systemName: "play"), for: .normal)
+            startButton.setTitleColor(UIColor.black, for: .normal)
         }
     }
     
@@ -126,27 +136,51 @@ class ViewController: UIViewController {
         resetButton.isEnabled = false
         resetButton.alpha = 0.5
         timer.invalidate()
-        time = 25
+        durationTime = 25
         isTimerStarted = false
-        timeLabel.text = "25:00"
+        isWorkTime = true
+        timeLabel.text = "00:25"
         startButton.setTitle("Пуск", for: .normal)
+        startButton.setImage(UIImage(systemName: "play"), for: .normal)
         startButton.setTitleColor(UIColor.black, for: .normal)
+        timeLabel.textColor = .orange
         }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    private func switchColorTimeLabel() {
+        if isWorkTime {
+            timeLabel.textColor = .orange
+        } else {
+            timeLabel.textColor = .green
+        }
     }
     
     @objc private func updateTimer() {
-        time -= 1
-        timeLabel.text = formatTime()
+        switchColorTimeLabel()
+        if isWorkTime {
+            durationTime -= 1
+            timeLabel.text = formatTime()
+        } else {
+            durationTime -= 1
+            timeLabel.text = formatTime()
+            if durationTime == 0 {
+                durationTime = 25
+                isWorkTime = true
+            }
+        }
+        if durationTime == 0 {
+            durationTime = 6
+            isWorkTime = false
+        }
     }
     
     private func formatTime() -> String {
-        let seconds = Int(time) % 60
-        let splitSecond = 0
-        return String(format: "%02i:%02i", seconds, splitSecond)
+        let minutes = Int(durationTime) / 60 % 60
+        let seconds = Int(durationTime) % 60
+        return String(format: "%02i:%02i", minutes, seconds)
     }
         
 }
-
