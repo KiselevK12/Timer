@@ -86,7 +86,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     // MARK: - Setup
     
     private func setupView() {
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = UIColor(red: 0.7, green: 0.8, blue: 1, alpha: 1)
         drawBackLayer()
     }
     
@@ -99,8 +99,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     private func setupLayout() {
         
         timeLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(view)
-            make.centerX.equalTo(view)
+            make.centerY.centerX.equalToSuperview()
         }
         
         startButton.snp.makeConstraints { make in
@@ -189,7 +188,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     private func formatTime() -> String {
         let minutes = Int(durationTime) / 600 % 60
         let seconds = Int(durationTime) / 10 % 60
-        return String(format: "%02i:%02i", minutes, seconds)
+        let splitSecond = Int(durationTime) % 10
+        return String(format: "%02i:%02i", seconds, splitSecond)
     }
     
     func drawBackLayer() {
