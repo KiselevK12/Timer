@@ -11,17 +11,17 @@ class ViewController: UIViewController, CAAnimationDelegate {
     
     // MARK: - Timer properties
     
-    var timer = Timer()
-    var isTimerStarted = false
-    var isWorkTime = true
-    var durationTime = 250
-    var isAnimationStarted = false
+    private var timer = Timer()
+    private var isTimerStarted = false
+    private var isWorkTime = true
+    private var durationTime = 250
+    private var isAnimationStarted = false
     
     // MARK: - Progress Bar
     
-    let frontProgressLayer = CAShapeLayer()
-    let backProgressLayer = CAShapeLayer()
-    let animation = CABasicAnimation(keyPath: "strokeEnd")
+    private let frontProgressLayer = CAShapeLayer()
+    private let backProgressLayer = CAShapeLayer()
+    private let animation = CABasicAnimation(keyPath: "strokeEnd")
     
     // MARK: - UI Elements
     
@@ -180,7 +180,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
             }
         }
         if durationTime == 0 {
-            durationTime = 60
+            durationTime = 50
             isWorkTime = false
         }
     }
@@ -192,23 +192,34 @@ class ViewController: UIViewController, CAAnimationDelegate {
         return String(format: "%02i:%02i", seconds, splitSecond)
     }
     
-    func drawBackLayer() {
-        backProgressLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+    // MARK: - Animation methods
+    
+    private func drawBackLayer() {
+        backProgressLayer.path = UIBezierPath(
+            arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY),
+            radius: 100,
+            startAngle: -90.degreesToRadians,
+            endAngle: 270.degreesToRadians, clockwise: true).cgPath
         backProgressLayer.strokeColor = UIColor.white.cgColor
         backProgressLayer.fillColor = UIColor.clear.cgColor
         backProgressLayer.lineWidth = 15
         view.layer.addSublayer(backProgressLayer)
     }
     
-    func drawFrontLayer() {
-        frontProgressLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+    private func drawFrontLayer() {
+        frontProgressLayer.path = UIBezierPath(
+            arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY),
+            radius: 100,
+            startAngle: -90.degreesToRadians,
+            endAngle: 270.degreesToRadians,
+            clockwise: true).cgPath
         frontProgressLayer.strokeColor = UIColor.systemGreen.cgColor
         frontProgressLayer.fillColor = UIColor.clear.cgColor
         frontProgressLayer.lineWidth = 15
         view.layer.addSublayer(frontProgressLayer)
     }
     
-    func startResumeAnimation() {
+    private func startResumeAnimation() {
         if !isAnimationStarted {
             startAnimation()
         } else {
@@ -216,7 +227,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    func startAnimation() {
+    private func startAnimation() {
         resetAnimation()
         frontProgressLayer.strokeEnd = 0.0
         animation.keyPath = "strokeEnd"
@@ -239,14 +250,14 @@ class ViewController: UIViewController, CAAnimationDelegate {
         isAnimationStarted = false
     }
     
-    func pauseAnimation() {
+    private func pauseAnimation() {
         let pausedTime = frontProgressLayer.convertTime(CACurrentMediaTime(),
                                                              from: nil)
         frontProgressLayer.speed = 0.0
         frontProgressLayer.timeOffset = pausedTime
     }
     
-    func resumeAnimation() {
+    private func resumeAnimation() {
         let pausedTime = frontProgressLayer.timeOffset
         frontProgressLayer.speed = 1.0
         frontProgressLayer.timeOffset = 0.0
@@ -256,7 +267,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         frontProgressLayer.beginTime = timeSincePaused
     }
     
-    func stopAnimation() {
+    private func stopAnimation() {
         frontProgressLayer.speed = 1.0
         frontProgressLayer.timeOffset = 0.0
         frontProgressLayer.beginTime = 0.0
@@ -265,7 +276,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         isAnimationStarted = false
     }
     
-    internal func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         stopAnimation()
         if isTimerStarted {
             startResumeAnimation()
